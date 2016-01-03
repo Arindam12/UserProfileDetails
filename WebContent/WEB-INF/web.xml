@@ -9,7 +9,7 @@
 
 <servlet>
 <servlet-name>ProfileInterfaceServlet</servlet-name>
-<servlet-class>crudoperation.MyServlet</servlet-class>
+<servlet-class>crudoperation.CrudServlet</servlet-class>
 
 <load-on-startup>1</load-on-startup>
 
@@ -17,10 +17,19 @@
 <servlet-mapping>
 <servlet-name>ProfileInterfaceServlet</servlet-name>
 <url-pattern>/myservlet</url-pattern>
-
-
-
 </servlet-mapping>
+<servlet>
+    <servlet-name>helloWorld</servlet-name>
+    <servlet-class>crudoperation.StoreAsyncCount</servlet-class>
+    
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>helloWorld</servlet-name>
+    <url-pattern>/helloWorld.do</url-pattern>
+     
+  </servlet-mapping>
+
+
 
 
 

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body bgcolor="#D8D8D8">
-
+<script src="WEB-INF/ajax.js"></script>
 <form method="post"  action="myservlet">
 
 <table style="font-size:13">
@@ -53,13 +53,14 @@
 </tr>
 <tr>
 <td>
-<input type="submit" name="button1" value="Insert"/></td>
+<input type="submit" name="button1"  value="Insert"/></td>
 <td>
 <input type="reset" name="button2" value="Reset"/></td>
 </tr></table>
 </fieldset>
 <br></br>
 
+<form>
 <h5>PROFILE DETAILS</h5>
 <table border="1" id="tablestr" style="font-size:13">
 <tr>
@@ -92,31 +93,134 @@ if(ar  !=null)
 	</td>
 	</tr>
 	<td>
-	<input type="submit" name="button3" value="delete"/></td>
+	<input type="submit" name="button3"  value="delete"/></td>
+	
 	</table>
-	</form>
-	</body>
-	</html>
 	
-	
+		
 	
 	
 
+		 <script type="text/javascript" >
+	 
+	 /*
+	  * creates a new XMLHttpRequest object which is the backbone of AJAX,
+	  * or returns false if the browser doesn't support it
+	  */
+	 function getXMLHttpRequest() {
+	 	var xmlHttpReq = false;
+	 	// to create XMLHttpRequest object in non-Microsoft browsers
+	 	if (window.XMLHttpRequest) {
+	 		xmlHttpReq = new XMLHttpRequest();
+	 	} else if (window.ActiveXObject) {
+	 		try {
+	 			// to create XMLHttpRequest object in later versions
+	 			// of Internet Explorer
+	 			xmlHttpReq = new ActiveXObject("Msxml2.XMLHTTP");
+	 		} catch (exp1) {
+	 			try {
+	 				// to create XMLHttpRequest object in older versions
+	 				// of Internet Explorer
+	 				xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+	 			} catch (exp2) {
+	 				xmlHttpReq = false;
+	 			}
+	 		}
+	 	}
+	 	return xmlHttpReq;
+	 }
+	 /*
+	  * AJAX call starts with this function
+	  */
+	 function makeRequest() {
+	 	var xmlHttpRequest = getXMLHttpRequest();
+	 	xmlHttpRequest.onreadystatechange = getReadyStateHandler(xmlHttpRequest);
+	 	xmlHttpRequest.open("POST", "helloWorld.do", true);
+	 	xmlHttpRequest.setRequestHeader("Content-Type",
+	 			"application/x-www-form-urlencoded");
+	 	xmlHttpRequest.send(null);
+	 }
+
+	 /*
+	  * Returns a function that waits for the state change in XMLHttpRequest
+	  */
+	 function getReadyStateHandler(xmlHttpRequest) {
+
+	 	// an anonymous function returned
+	 	// it listens to the XMLHttpRequest instance
+	 	return function() {
+	 		if (xmlHttpRequest.readyState == 4) {
+	 			if (xmlHttpRequest.status == 200  ) {
+	 				alert(xmlHttpRequest.responseText);
+	 				document.getElementById("hello").innerHTML = xmlHttpRequest.responseText;
+	 			} else {
+	 				alert("HTTP error " + xmlHttpRequest.status + ": " + xmlHttpRequest.statusText);
+	 			}
+	 		}
+	 	};
+	 }
+
+	 
+	 
+	 </script>
+
+		 
 
 
 
+  <div id="hello"><input type="button" name="button3" onclick="makeRequest()" value="AJAX"/></div>
 
 
-
-
-
-
-
-
-</table>
 
 
 </form>
+<form method="post"  action="myservlet">
+<h5>SEARCH DETAILS</h5>
+<table border="1" id="tablestr" style="font-size:13">
+<tr>
+<td>
+<label for="Age">Search Profile based on Name Using Lamda Exp</label></td>
+
+<td>
+<input type="text" id="Age1" name="Age1"></td>
+<td><input type="submit" name="button4"  value="Search"/></td>
+</tr>
+
+
+<table border="1" id="tablestr" style="font-size:13">
+<tr>
+<td>NAME</td>
+<td>ADDRESS</td>
+<td>DOJ</td>
+<td>DOB</td>
+<td>TECHNOLOGY</td>
+<td>AGE</td>
+</tr>
+
+<%
+
+ArrayList<UserInfo> ar1=(ArrayList)session.getAttribute("store1");
+if(ar1  !=null)
+{
+	for(UserInfo user1:ar1){%>
+	<tr>
+	<td><%=user1.getName()%></td>
+	<td><%=user1.getAddress()%></td>
+	<td><%=user1.getDoj()%></td>
+	<td><%=user1.getDob()%></td>
+	<td><%=user1.getTechnology()%></td>
+	<td><%=user1.getAge()%></td>
+	</tr>
+	<%} }%>
+	</table>
+	
+	</td>
+	</td>
+	</tr>
+	
+	</table>
+
+</table>
 
 
 

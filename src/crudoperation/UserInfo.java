@@ -1,6 +1,8 @@
 package crudoperation;
 
-public class UserInfo {
+import java.io.Serializable;
+
+public class UserInfo implements Serializable{
 private String name;
 private String Address;
 private String doj;
@@ -37,6 +39,8 @@ public String getTechnology() {
 public void setTechnology(String technology) {
 	this.technology = technology;
 }
+
+
 public String getAge() {
 	return age;
 }
